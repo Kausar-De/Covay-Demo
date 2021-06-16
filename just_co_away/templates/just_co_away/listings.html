@@ -1,0 +1,157 @@
+{% extends 'just_co_away/base.html' %}
+
+{% load static %}
+
+
+
+{% block content %}
+<header class="page-header">
+  <div class="container-fluid">
+
+      </a>
+      <h1><a href="/listings">Oxygen Cylinder Suppliers (Based on location and availability)</a>
+      <a href="{% url 'homepage' %}" class="top-menu" style="float:right">
+          {% include './icons/house-door.svg' %}
+      </a>
+  </h1>
+  </div>
+</div>
+</header>
+
+
+<script type="text/javascript">
+  window.onload = function() {
+   document.getElementById('button').onclick = function() {
+     document.getElementById('modalOverlay').style.display = 'none'
+   };
+ };</script>
+<div id="modalOverlay">
+  <div class="modalPopup">
+    <div class="headerBar"><br>
+      <img src="{% static 'just_co_away/assets/Img.png' %}" alt="Logo" style="
+display: block;
+margin-left: auto;
+margin-right: auto;
+max-width: 300px;
+margin-bottom:20px;
+width:100%;">
+    </div>
+    <div class="modalContent">
+        <h1>NOTE</h1>
+         <p>Although we verified the sources and regularly update them, what worked yesterday may
+              not work today or tomorrow. Everyone is running out of stock, capacity and resources so if you find
+              numbers that are switched off/busy/ or not picking up, move on to the next one. We will routinely call
+              and remove the ones that aren’t working and replace it with numbers that work.
+              We hope this helps.</p>
+         <button class="buttonStyle" id="button">Accept</button>
+    </div>
+  </div>
+</div> 
+{% if listings %}
+    {% for listing in listings %}
+    <div class="product">
+      <div class="image-box">
+       
+            <iframe style="display:block;"class="images " id="{{listing.pk}}" width="100%" height="75%" frameborder="" 
+              src="https://www.googddle.com/maps/embed/v1/directions?key=APIKEY&origin=sessionStorage.getItem('lat'),sessionStorage.getItem('long')&destination={{listing.address}}"
+              allowfullscreen> 
+          </iframe>
+      </div>
+      <div class="text-box">
+       
+     <h3 class="item"><a href="{% url 'listing_detail' pk=listing.pk %}">Supplier: {{ listing.supplier|linebreaksbr }}</a></h3>
+            
+              <p class="description">Phone Number: {{ listing.phone_number|linebreaksbr }}</p>
+              
+              <p class="description">Whatsapp Number: {{ listing.whatsapp_number|linebreaksbr }}</p>
+              
+              <p class="description">Address: {{ listing.address|linebreaksbr }}</p>
+              <p class="description">City: {{ listing.city|linebreaksbr }}</p>
+              <p class="description">PIN Code: {{ listing.pincode|linebreaksbr }}</p>
+              <p class="description">Verified at: {{ listing.verified_on|linebreaksbr }} on {{ listing.date_verified_on|linebreaksbr }}</p>
+     
+      </div>
+    </div>
+
+<script>
+    function googleMapLoad(){
+        var iframe_ele = document.getElementById('{{listing.pk}}');
+        iframe_ele.src = 'https://www.google.com/maps/embed/v1/place?key={{api_key}}&q={{listing.address}}'
+    }
+    googleMapLoad();
+
+</script>
+
+   
+
+
+{% endfor %}
+{% else %}
+<h1>Sorry, there are no available Oxygen Dealers available currently.</h1>
+{% endif %}
+
+
+{% if listings.has_other_pages %}
+  <ul class="pagination justify-content-center">
+    {% if listings.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ listings.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="page-item disabled"><a class="page-link"><span>&laquo;</span></a></li>
+    {% endif %}
+    {% for i in listings.paginator.page_range %}
+      {% if listings.number == i %}
+        <li class="page-item active"><a class="page-link"><span>{{ i }} <span class="sr-only">(current)</span></span></a></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if listings.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ listings.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="page-item disabled"><a class="page-link"><span>&raquo;</span></a></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+    // Script to get the location of the user
+    (function () {
+        navigator.geolocation.getCurrentPosition(function (position) {
+        sessionStorage.setItem("lat", position.coords.latitude);
+        sessionStorage.setItem("long", position.coords.longitude);
+        },
+        function (error) {
+            console.log("Geolocation is not supported by this browser.")
+        })
+    })();
+</script>
+
+<script>
+   //function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+   //     var R = 6371; // Radius of the earth in km
+   //     var dLat = deg2rad(lat2-lat1);  // deg2rad below
+   //     var dLon = deg2rad(lon2-lon1); 
+   //     var a = 
+   //       Math.sin(dLat/2) * Math.sin(dLat/2) +
+   //       Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+   //       Math.sin(dLon/2) * Math.sin(dLon/2)
+   //       ; 
+   //     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+   //     var d = R * c; // Distance in km
+   //     return d;
+   //   }
+   //   
+   //   function deg2rad(deg) {
+   //     return deg * (Math.PI/180)
+   //   }
+</script>
+
+
+
+{% endblock script %}

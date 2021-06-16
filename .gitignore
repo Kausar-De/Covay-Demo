@@ -1,0 +1,49 @@
+# Python
+*.pyc
+*~
+__pycache__
+
+# Env
+
+*.env
+*.env.example
+*.env.production
+
+myvenv/
+venv/ 
+
+# Database
+db.sqlite3
+
+# Static folder at project root
+/static/
+local.bat
+runserver.bat
+
+# macOS
+._*
+.DS_Store
+.fseventsd
+.Spotlight-V100
+
+# Windows
+Thumbs.db*
+ehthumbs*.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Visual Studio
+.vscode/
+.history/
+*.code-workspace
+
+*.pyc
+db.sqlite3
+myvenv
+__pycache__
+local_settings.py
+production_settings.py
+
+#PKI
+
+.well-known

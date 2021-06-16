@@ -1,0 +1,149 @@
+{% extends 'just_co_away/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<header class="page-header-meal">
+  <div class="container-fluid">
+
+      </a>
+      <h1><a href="/meallistings">Meals for Patients (Based on location and availability)</a>
+      <a href="{% url 'homepage' %}" class="top-menu" style="float:right">
+          {% include './icons/house-door.svg' %}
+      </a>
+  </h1>
+  </div>
+</div>
+</header>
+<script type="text/javascript">
+  window.onload = function() {
+   document.getElementById('button').onclick = function() {
+     document.getElementById('modalOverlay').style.display = 'none'
+   };
+ };</script>
+<div id="modalOverlay">
+  <div class="modalPopup">
+    <div class="headerBar-meal"><br>
+      <img src="{% static 'just_co_away/assets/Img.png' %}" alt="Logo" style="
+display: block;
+margin-left: auto;
+margin-right: auto;
+max-width: 300px;
+margin-bottom:20px;
+width:100%;">
+    </div>
+    <div class="modalContent">
+        <h1>NOTE</h1>
+         <p>With respect to any purchase of meals made by the user, our liability is limited to the verification of the sources,  checking the availability of meals and regularly updating them. We are not able to monitor the quality of food supply. Feedback is highly recommended, so that we can keep a note of the sources and  update our website.</p>
+         <button class="buttonStyle" id="button">Accept</button>
+    </div>
+  </div>
+</div> 
+{% if meallistings %}
+    {% for meallisting in meallistings %}
+    <div class="product">
+      <div class="image-box">
+       
+            <iframe style="display:block;"class="images " id="{{meallisting.pk}}" width="100%" height="75%" frameborder="" 
+              src="https://www.googddle.com/maps/embed/v1/directions?key=APIKEY&origin=sessionStorage.getItem('lat'),sessionStorage.getItem('long')&destination={{meallisting.address}}"
+              allowfullscreen> 
+          </iframe>
+      </div>
+      <div class="text-box">
+       
+     <h3 class="item"><a class ="meal" href="{% url 'meallisting_detail' pk=meallisting.pk %}">Provider: {{ meallisting.supplier|linebreaksbr }}</a></h3>
+            
+              <p class="description">Details: {{ meallisting.price|linebreaksbr }}</p>
+              <p class="description">Phone Number: {{ meallisting.phone_number|linebreaksbr }}</p>
+              
+              <p class="description">Whatsapp Number: {{ meallisting.whatsapp_number|linebreaksbr }}</p>
+              <p class="description">Delivery Available? {{ meallisting.delivery|linebreaksbr|yesno:"Yes,No" }}</p>
+              <p class="description">Address: {{ meallisting.address|linebreaksbr }}</p>
+              <p class="description">City: {{ meallisting.city|linebreaksbr }}</p>
+              <p class="description">Verified at: {{ meallisting.verified_on|linebreaksbr }} on {{ meallisting.date_verified_on|linebreaksbr }}</p>
+     
+      </div>
+    </div>
+
+<script>
+    function googleMapLoad(){
+        var iframe_ele = document.getElementById('{{meallisting.pk}}');
+        iframe_ele.src = 'https://www.google.com/maps/embed/v1/place?key={{api_key}}&q={{meallisting.address}}'
+    }
+    googleMapLoad();
+
+</script>
+
+   
+
+
+{% endfor %}
+{% else %}
+<h1>Sorry, there are no available Meal Providers available currently.</h1>
+{% endif %}
+
+
+{% if meallistings.has_other_pages %}
+  <ul class="pagination justify-content-center">
+    {% if meallistings.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ meallistings.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="page-item disabled"><a class="page-link"><span>&laquo;</span></a></li>
+    {% endif %}
+    {% for i in meallistings.paginator.page_range %}
+      {% if meallistings.number == i %}
+        <li class="page-item active"><a class="page-link"><span>{{ i }} <span class="sr-only">(current)</span></span></a></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if meallistings.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ meallistings.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="page-item disabled"><a class="page-link"><span>&raquo;</span></a></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+    // Script to get the location of the user
+    (function () {
+        navigator.geolocation.getCurrentPosition(function (position) {
+        sessionStorage.setItem("lat", position.coords.latitude);
+        sessionStorage.setItem("long", position.coords.longitude);
+        },
+        function (error) {
+            console.log("Geolocation is not supported by this browser.")
+        })
+    })();
+</script>
+
+<script>
+   //function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+   //     var R = 6371; // Radius of the earth in km
+   //     var dLat = deg2rad(lat2-lat1);  // deg2rad below
+   //     var dLon = deg2rad(lon2-lon1); 
+   //     var a = 
+   //       Math.sin(dLat/2) * Math.sin(dLat/2) +
+   //       Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+   //       Math.sin(dLon/2) * Math.sin(dLon/2)
+   //       ; 
+   //     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+   //     var d = R * c; // Distance in km
+   //     return d;
+   //   }
+   //   
+   //   function deg2rad(deg) {
+   //     return deg * (Math.PI/180)
+   //   }
+</script>
+
+
+
+{% endblock script %}

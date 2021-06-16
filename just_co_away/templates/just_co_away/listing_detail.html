@@ -1,0 +1,35 @@
+{% extends 'just_co_away/base.html' %}
+
+{% block content %}
+<header class="page-header">
+    <div class="container-fluid">
+
+        </a>
+        <h1><a href="/listings">Oxygen Cylinder Suppliers (Based on location and availability)</a>
+        <a href="{% url 'homepage' %}" class="top-menu" style="float:right">
+            {% include './icons/house-door.svg' %}
+        </a>
+    </h1>
+    </div>
+</div>
+</header>
+
+
+    <article class = "listing">
+
+        <h2><a href = "{% url 'listing_detail' pk=listing.pk %}">Supplier: {{ listing.supplier|linebreaksbr }}</a></h2>
+        <p>Available? {{ listing.available|linebreaksbr|yesno:"Yes,No" }}</p>
+        <p>Price Range: {{ listing.price|linebreaksbr }}</p>
+        <p>Phone Number: {{ listing.phone_number|linebreaksbr }}</p>
+        <p>Landline Number: {{ listing.landline_number|linebreaksbr }}</p>
+        <p>Whatsapp Number: {{ listing.whatsapp_number|linebreaksbr }}</p>
+        <p>Address: {{ listing.address|linebreaksbr }}</p>
+        <p>State: {{ listing.state|linebreaksbr }}</p>
+        <p>City: {{ listing.city|linebreaksbr }}</p>
+        <p>PIN Code: {{ listing.pincode|linebreaksbr }}</p>
+        <p>Delivery Available? {{ listing.delivery|linebreaksbr|yesno:"No,Yes" }}</p>
+        <p>Max. Delivery Distance: {{ listing.maximum_delivery_distance|linebreaksbr }}</p>
+        <p>Cylinders Per Customer: {{ listing.cylinders_per_customer|linebreaksbr }}</p>
+        <p>Verified at: {{ listing.verified_on|linebreaksbr }} on {{ listing.date_verified_on|linebreaksbr }}</p>
+    </article>
+{% endblock %}
