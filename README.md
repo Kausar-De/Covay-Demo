@@ -22,19 +22,18 @@ Naturally, this particular repository has no live deployment anywhere and is cur
 
 Home Page:
 
-![image](https://drive.google.com/uc?export=view&id=1FaHqdIstRov_XOmkpcVszGgZBu_4h-Om)
+![](Screenshots/Homepage.png)
 
 
 Mobile View:
 
-![image](https://drive.google.com/uc?export=view&id=14xSzmlW_0QArrD6YlWIeHtWzD5tEQ2RK)
+![](Screenshots/MobileView.png)
 
 
 Oxygen Listings:
 
-![image](https://drive.google.com/uc?export=view&id=1P6y2G15fuYYktp9_Fc8bVan2LzEqeGGt)
-
+![](Screenshots/OxygenListings.png)
 
 Meal Listings:
 
-![image](https://drive.google.com/uc?export=view&id=1AiVgq4UgjfD5Dv63ofgiBplQkKIDic3L)
+![](Screenshots/MealListings.png)
