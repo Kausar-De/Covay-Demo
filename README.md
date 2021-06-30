@@ -6,7 +6,7 @@ This is a website in production which lists all the available oxygen centers and
 A big thank you to the 200+ verifiers that are working with us day and night to ensure availability and integrity of all listings.
 
 
-The website currently features oxygen and covid meal listings, a homepage and a contributors page, pagination, and live updates to the listings.
+The website currently features oxygen and covid meal listings, a homepage and a contributors page, pagination, and live updates to the listings. We started working on it on April 23 2021, and the first live build was deployed in just 4 days!
 
 
 The backend is made using Python's Django framework. The front-end utilizes HTML5, CSS3, JavaScript and Bootstrap4. The database is PostgreSQL and Google Maps API has been used for generating maps for each listing. CSS Media tags have been used to make website fully mobile-friendly. 
